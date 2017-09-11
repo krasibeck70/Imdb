@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section scripts
+{
+    <script src="../../Scripts/CustomScripts/notificacions.js"></script>
+    <script src="../../Scripts/CustomScripts/app.js"></script>
+}
+<style>
+    .center {
+        margin-top: 3in;
+    }
+</style>
+<div class="search">
+    <div class="row">
+        @*col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-6 col-md-4 col-lg-2*@
+
+        <div class="center">
+            <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <select class="selectpicker">
+                    <option>Title</option>
+                    <option>Author</option>
+                    <option>Year</option>
+                </select>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                <input id="movie" type="text" class="form-control" placeholder="Search by Title">
+            </div>
+            <div id="yearDiv" class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+                <input id="year" type="text" class="form-control" placeholder="Year">
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <button id="buttonSearch" class="btn btn-info">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="info message col-lg-offset-3 col-lg-6">
+        <h3 style="text-align: center">Loading...</h3>
+        <p style="text-align: center"></p>
+    </div>
+
+    <div class="error message col-lg-offset-9 col-lg-3">
+        <h3>Ups, an error ocurred</h3>
+        <p>This is just an error notification message.</p>
+    </div>
+
+    <div class="warning message col-lg-offset-9 col-lg-3">
+        <h3>Wait, I must warn you!</h3>
+        <p>This is just a warning notification message.</p>
+    </div>
+
+    <div class="success message col-lg-offset-9 col-lg-3">
+        <h3>Congrats, you did it!</h3>
+        <p>This is just a success notification message.</p>
+    </div>
+</div>
+<a href="@Url.Action("MovieDetails","Home",new{id = "12345"})">click</a>
+<div class="container">
+    <div class="row" id="app">
+
+    </div>
+</div>

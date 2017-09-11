@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", required: false)
+    <link rel="stylesheet" href="../../Content/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../../Content/header.css">
+    <link rel="stylesheet" href="../../Content/notificacions.css">
+    <link rel="stylesheet" href="../../Content/myCss.css">
+
+    <style>
+        body {
+            background: url('../../Content/images/uyeqTRM.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    
+</head>
+<body>
+    <header role="banner" class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div class="navbar-inverse side-collapse in">
+                <nav role="navigation" class="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li><a href="@Url.Action("PopularMovies", "Home")">Users</a></li>
+                        <li><a href="#users">Users</a></li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
