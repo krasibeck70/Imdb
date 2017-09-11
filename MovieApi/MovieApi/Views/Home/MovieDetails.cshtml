@@ -6,7 +6,11 @@
     
 <script src="~/Scripts/CustomScripts/detailsMovie.js"></script>
 }
-
+<style>
+    .jumbotron {
+        opacity: inherit;
+    }
+</style>
 
 <main>
 <div class="container">
@@ -21,17 +25,25 @@
             <br />
             <br />
 
-            <p id="description">
+            <div class="jumbotron">
+                <p><strong>Description</strong></p>
+                <p id="description"></p>
+
+                <p id="yearMovie"><strong>Year</strong>
+                </p>
+                <p id="Genre">
+                    <strong>Genre</strong>
+                </p>
+                <p id="RunTime"><strong>Duration</strong>
+                </p>
+                <p id="ReleaseDate"><strong>Release Date</strong>
                 
-            </p>
+                <p id="OriginalLang"><strong>Original Lenguaje</strong>
+                </p>
+                <p id="Popularity"><strong>Popularity</strong>
+                </p>
 
-            <p id="yearMovie"><strong>Year</strong> </p>
-            <p id="RunTime"><strong>Duration</strong> </p>
-            <p id="ReleaseDate"><strong>Release Date</strong> </p>
-            <p><strong>WebSite</strong><a id="HomePage"></a> </p>
-            <p id="OriginalLang"><strong>Original Lenguaje</strong> </p>
-            <p id="Popularity"><strong>Popularity</strong> </p>
-
+            </div>
             
             
             <br />

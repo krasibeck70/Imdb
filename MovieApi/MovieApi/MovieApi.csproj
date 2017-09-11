@@ -230,6 +230,7 @@
     <Content Include="Scripts\CustomScripts\bootstrap-select.js" />
     <Content Include="Scripts\CustomScripts\bootstrap-select.min.js" />
     <Content Include="Scripts\CustomScripts\detailsMovie.js" />
+    <Content Include="Scripts\CustomScripts\genres.js" />
     <Content Include="Scripts\CustomScripts\notificacions.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />

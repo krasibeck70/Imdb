@@ -24,7 +24,7 @@ let notificacions = (()=> {
         setTimeout(() => errorBox.fadeOut(), 3000);
     }
     function handleError(reason) {
-        showError(reason.responseJSON.description);
+        showError(reason.responseJSON);
     }
 
 

@@ -11,13 +11,23 @@
             console.log(response);
             $('#movieYoutube').attr('src', "https://www.youtube.com/embed/" + responseVideo.results[0].key);
         });
-        $('#description').text(" - " + response.overview);
-        $('#ReleaseDate').text(" - " + response.release_date);
-        $('#RunTime').text(" - " + response.runtime);
-        $('#yearMovie').text(" - " + response.release_date.split('-')[0]);
-        $('#Popularity').text(" - " + response.popularity);
-        $('#OriginalLang').text(" - " + response.original_language);
-        $('#HomePage').text(" - " + response.homepage);
+        $('#description').append(response.overview);
+        $('#ReleaseDate').append(" - " + response.release_date);
+        $('#RunTime').append(" - " + response.runtime + " min");
+        $('#yearMovie').append(" - " + response.release_date.split('-')[0]);
+        $('#Popularity').append(" - " + response.popularity);
+        $('#OriginalLang').append(" - " + response.original_language);
+        $('#Genre').append(" - ");
+        var genres = "";
+        for (let genre of response.genres) {
+            genres += genre.name + ",";
+        }
+        genres = genres.substring(0, genres.length - 1);
+        $('#Genre').append(genres);
+        
+                
+       
+        
         console.log(response.title);
     });
 
