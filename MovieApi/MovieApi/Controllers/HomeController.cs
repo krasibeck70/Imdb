@@ -21,8 +21,14 @@ namespace MovieApi.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult MovieDetails(string id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
+        public ActionResult FavoritesMovies(string id)
         {
             ViewBag.id = id;
             return View();

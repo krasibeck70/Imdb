@@ -198,9 +198,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709111907088_InitialCreate.cs" />
+    <Compile Include="Migrations\201709111907088_InitialCreate.Designer.cs">
+      <DependentUpon>201709111907088_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -229,9 +235,11 @@
     <Content Include="Scripts\CustomScripts\app.js" />
     <Content Include="Scripts\CustomScripts\bootstrap-select.js" />
     <Content Include="Scripts\CustomScripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\CustomScripts\commingSoon.js" />
     <Content Include="Scripts\CustomScripts\detailsMovie.js" />
     <Content Include="Scripts\CustomScripts\genres.js" />
     <Content Include="Scripts\CustomScripts\notificacions.js" />
+    <Content Include="Scripts\CustomScripts\topRatedMovies.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -283,6 +291,7 @@
     <Content Include="Views\Home\PopularMovies.cshtml" />
     <Content Include="Views\Home\MovieDetails.cshtml" />
     <Content Include="Views\Home\ComingSoon.cshtml" />
+    <Content Include="Views\Home\FavoritesMovies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -304,6 +313,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709111907088_InitialCreate.resx">
+      <DependentUpon>201709111907088_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

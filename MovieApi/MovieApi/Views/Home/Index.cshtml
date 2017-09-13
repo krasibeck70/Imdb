@@ -4,13 +4,10 @@
 @section scripts
 {
     <script src="../../Scripts/CustomScripts/notificacions.js"></script>
+<script src="~/Scripts/CustomScripts/genres.js"></script>
     <script src="../../Scripts/CustomScripts/app.js"></script>
 }
-<style>
-    .center {
-        margin-top: 3in;
-    }
-</style>
+
 <div class="search">
     <div class="row">
         @*col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-6 col-md-4 col-lg-2*@
@@ -55,7 +52,7 @@
         <p>This is just a success notification message.</p>
     </div>
 </div>
-<a href="@Url.Action("MovieDetails","Home",new{id = "12345"})">click</a>
+
 <div class="container">
     <div class="row" id="app">
 

@@ -3,5 +3,38 @@
     ViewBag.Title = "PopularMovies";
 }
 
-<h2>PopularMovies</h2>
+@section scripts
+{
+    <script src="../../Scripts/CustomScripts/notificacions.js"></script>
+    <script src="~/Scripts/CustomScripts/topRatedMovies.js"></script>
+}
+
+<div class="row">
+    <div class="info message col-lg-offset-3 col-lg-6">
+        <h3 style="text-align: center">Loading...</h3>
+        <p style="text-align: center"></p>
+    </div>
+
+    <div class="error message col-lg-offset-9 col-lg-3">
+        <h3>Ups, an error ocurred</h3>
+        <p>This is just an error notification message.</p>
+    </div>
+
+    <div class="warning message col-lg-offset-9 col-lg-3">
+        <h3>Wait, I must warn you!</h3>
+        <p>This is just a warning notification message.</p>
+    </div>
+
+    <div class="success message col-lg-offset-9 col-lg-3">
+        <h3>Congrats, you did it!</h3>
+        <p>This is just a success notification message.</p>
+    </div>
+</div>
+<h1 style="text-align: center" class="display-3">Comming Soon</h1>
+<div class="container">
+    <div class="row" id="app2">
+
+    </div>
+</div>
+
 
