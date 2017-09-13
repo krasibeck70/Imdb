@@ -217,9 +217,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\header.css" />
     <Content Include="Content\images\fondo_login %281%29.png" />
+    <Content Include="Content\images\krasibeck70%40gmail.com.png" />
+    <Content Include="Content\images\movie day.png" />
     <Content Include="Content\images\uyeqTRM.jpg" />
     <Content Include="Content\myCss.css" />
     <Content Include="Content\notificacions.css" />
+    <Content Include="Content\profile.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

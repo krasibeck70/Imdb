@@ -28,7 +28,7 @@
     let app = $('#app2');
     app.text('');
 
-    $.get(`https://api.themoviedb.org/3/movie/top_rated?api_key={tmdbKey}`)
+    $.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=6c062077aac02e651366a9737528c88d`)
         .then(function (response) {
             notificacions.loading('We search your film');
 

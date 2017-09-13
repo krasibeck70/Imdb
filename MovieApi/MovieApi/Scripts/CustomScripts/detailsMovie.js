@@ -24,10 +24,39 @@
         }
         genres = genres.substring(0, genres.length - 1);
         $('#Genre').append(genres);
+        $('#buttonLike').attr('data-id', response.id);
+        $('#buttonLike').on('click', addMovie);
         
-                
-       
-        
+
+        function addMovie() {
+            var gen = "";
+            for (var i = 0; i < response.genres.length; i++) {
+                gen += response.genres[i].name + " ";
+                console.log(response.genres[i]);
+            }
+            console.log(gen);
+            var json = {
+                'Id': response.id,
+                'Name': response.name,
+                'Poster': response.poster_path,
+                'Budget': response.budget,
+                'GenresString': gen,
+                'Lenguage': response.original_language,
+                'Overview': response.overview,
+                'Popularity': response.popularity,
+                'Runtime': response.runtime,
+                'VoteAverage': response.vote_average,
+                'Title': response.title,
+                'RealeseDate': response.release_date
+            }
+            $.ajax({
+                url: "/Home/FavoritesMovies",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8"
+        });
+        }
+
         console.log(response.title);
     });
 

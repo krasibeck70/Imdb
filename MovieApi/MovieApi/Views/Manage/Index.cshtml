@@ -1,87 +1,42 @@
-﻿@model MovieApi.Models.IndexViewModel
+﻿@using Microsoft.AspNet.Identity
+@model MovieApi.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
+@section Styles{
+    
+    <link href="~/Content/profile.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+}
+@section Scripts{
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+    <script>
+        function chooseFile() {
+            $("#files").click();
+        }
+</script>
+}
 
-<h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
-</div>
+<div class="container">
+    <div class="fb-profile">
+        <img align="left" class="fb-image-lg" src="http://otdt.net/wp-content/uploads/300_rise_of_an_empire_2014-logo-850x280.jpg" alt="Profile image example" />
+        <img align="left" class="fb-image-profile thumbnail" id="img" src="~/Content/Images/@Model.Image" alt="Profile image example" />
+
+        @using (Html.BeginForm("ChangePhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div style="height: 0px; overflow: hidden">
+                <input type="file" id="files" name="file" onchange="this.form.submit()" />
+            </div>
+            <div>
+                <input type="button" OnClick="chooseFile();" class="btn btn-primary" value="Select Image" />
+            </div>
+        }
+
+        <div class="fb-profile-text">
+            <h1>@User.Identity.GetUserName()</h1>
+        </div>
+    </div>
+    
+
+</div> 

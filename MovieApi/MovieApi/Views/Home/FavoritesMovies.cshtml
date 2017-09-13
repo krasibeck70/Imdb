@@ -1,7 +1,30 @@
-﻿
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<MovieApi.Models.Movie>
 @{
     ViewBag.Title = "FavoritesMovies";
 }
 
-<h2>FavoritesMovies</h2>
+<h2 style="text-align: center">FavoritesMovies</h2>
+<div>
+    @foreach (var movie in Model)
+    {
+        
+        {
+            var poster = $"http://image.tmdb.org/t/p/w185//{@movie.Poster}";
+
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
+                <a href="#"></a>
+                <div class="thumbnail"><img alt="#" src="@poster">
+                    <div class="caption">
+                        <h3>@movie.RealeseDate.Split('-')[0]<small>@movie.Title</small>
+                        </h3>
+                        <hr>
+                        <p>Horror,</p><a role="button" href="/Home/MovieDetails/@movie.Id class=" data-id=" 346364" btn-default="" btn="">View More</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
 

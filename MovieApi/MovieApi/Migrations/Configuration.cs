@@ -9,7 +9,7 @@ namespace MovieApi.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "MovieApi.Models.ApplicationDbContext";
         }
 

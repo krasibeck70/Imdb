@@ -72,3 +72,5 @@ C:\Users\BecK\Desktop\TheMovieApi\MovieApi\MovieApi\bin\Microsoft.Owin.Security.
 C:\Users\BecK\Desktop\TheMovieApi\MovieApi\MovieApi\obj\Debug\MovieApi.csprojResolveAssemblyReference.cache
 C:\Users\BecK\Desktop\TheMovieApi\MovieApi\MovieApi\obj\Debug\MovieApi.dll
 C:\Users\BecK\Desktop\TheMovieApi\MovieApi\MovieApi\obj\Debug\MovieApi.pdb
+C:\Users\BecK\Desktop\TheMovieApi\MovieApi\MovieApi\obj\Debug\MovieApi.Migrations.InitialCreate.resources
+C:\Users\BecK\Desktop\TheMovieApi\MovieApi\MovieApi\obj\Debug\MovieApi.csproj.GenerateResource.Cache

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -70,9 +72,17 @@ namespace MovieApi.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Image = UserManager.Users.FirstOrDefault(x=>x.Id == userId).Image,
             };
             return View(model);
+        }
+        [HttpPost]
+        public ActionResult ChangePhoto(HttpPostedFileBase file)
+        {
+            ChangeProfilePicture(file);
+            return RedirectToAction("Index", "Manage");
+            
         }
 
         //
@@ -333,7 +343,29 @@ namespace MovieApi.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        public void ChangeProfilePicture(HttpPostedFileBase file)
+        {
+
+            var context = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var user = context.Users.FirstOrDefault(x => x.Id == userId);
+            string fileExt = System.IO.Path.GetExtension(file.FileName);
+            var imageName = user.Email + ".png";
+            if (fileExt.ToLower().EndsWith(".png") || fileExt.ToLower().EndsWith(".jpg"))
+            {
+                var filePath = HostingEnvironment.MapPath("~/Content/Images/") + imageName;
+                var directory = new DirectoryInfo(HostingEnvironment.MapPath("~/Content/Images/"));
+                if (directory.Exists == false)
+                {
+                    directory.Create();
+                }
+                user.Image = imageName;
+                file.SaveAs(filePath);
+                context.SaveChanges();
+            }
+        }
+
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
