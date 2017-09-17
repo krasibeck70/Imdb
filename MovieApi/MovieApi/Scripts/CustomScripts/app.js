@@ -68,8 +68,8 @@
     $('.selectpicker').on('change',
         function () {
             let val = $(this).find('option:selected');
-            console.log(val[0]['label']);
-            if (val[0]['label'] === "Author") {
+            //console.log(val[0]['label']);
+            if (val[0]['label'] === "Actor") {
                 $('#buttonSearch').off('click');
                 $('#buttonSearch').on('click', searchByAuthor);
             } else if (val[0]['label'] === "Genre") {
@@ -90,7 +90,7 @@
             .then(function (response) {
                 notificacions.loading('We search your film');
 
-                console.log(response);
+                //console.log(response);
 
                 for (let movies of response.results) {
                     if (movies.poster_path === null) {
@@ -137,31 +137,44 @@
         app.text('');
         let movie = $('#movie').val();
 
-        $.get(`http://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${movie}`)
+        $.get(`http://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&append_to_response=actors&query=${movie}`)
             .then(function (response) {
                 notificacions.loading('We search your film');
 
                 console.log(response);
 
                 for (let movies of response.results) {
-                    if (movies.poster_path === null) {
+                    if (movies.poster_path === null || Number(movies.release_date.split('-')[0]) < movie || movies.release_date.split('-')[0] > movie) {
                         continue;
+                    }
+                    let h3 = "";
+                    
+                    if (movies.release_date.split('-')[0] === "") {
+                         h3 = $('<h3>').text(movie);
+                    } else {
+                         h3 = $('<h3>').text(movies.release_date.split('-')[0]);
                     }
                     let firstDIv = $('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">');
                     let a = $('<a href="#">');
                     let thumbnail = $('<div class="thumbnail">');
                     let image = $(`<img src="${"http://image.tmdb.org/t/p/w185/" + movies.poster_path}" alt="#">`);
                     let caption = $('<div class="caption">');
-                    let h3 = $('<h3>').text(movies.release_date.split('-')[0]);
+                    
                     let small = $('<small>');
                     var title = movies.title.substring(0,13);
                     small.text(title + "...");
 
                     let hr = $('<hr>');
+                    console.log(movies.genre_ids);
                     var genres = "";
-                    for (let genre of movies.genre_ids) {
-                        genres += selectGenresById(genre) + ",";
+                    if (movies.genre_ids['length'] === 0) {
+                        genres = "Drama";
+                    } else {
+                        for (let genre of movies.genre_ids) {
+                            genres += selectGenresById(genre) + ",";
+                        }
                     }
+                    
 
                     genres = genres.substring(0, 24);
                     let p = $('<p>').text(genres);
@@ -187,54 +200,60 @@
         app.text('');
         let author = $('#movie').val();
 
-        $.get(`https://api.themoviedb.org/3/search/person?api_key=${tmdbKey}&query=${author}`)
+        $.get(`https://api.themoviedb.org/3/search/person?api_key=${tmdbKey}&append_to_response=credits&query=${author}`)
             .then(function (response) {
                 notificacions.loading('We search your film');
+                console.log(response);
+                let idActor = response.results[0].id;
+                $.get(`https://api.themoviedb.org/3/person/${idActor}?api_key=6c062077aac02e651366a9737528c88d&append_to_response=credits`)
+                    .then(function (responseActor) {
+                        console.log(responseActor.credits['cast']);
+                        for (let movies of responseActor.credits['cast']) {
+                            //console.log(singleMovie);
 
-                for (let singleMovie of response.results) {
-                    console.log(singleMovie);
-                    for (let movies of singleMovie['known_for']) {
-                        console.log(movie);
-                        if (movies.poster_path === null) {
-                            continue;
+                            //console.log(movie);
+                            if (movies.poster_path === null) {
+                                continue;
+                            }
+                            let firstDIv = $('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">');
+                            let a = $('<a href="#">');
+                            let thumbnail = $('<div class="thumbnail">');
+                            let image = $(`<img src="${"http://image.tmdb.org/t/p/w185/" + movies.poster_path}" alt="#">`);
+                            let caption = $('<div class="caption">');
+                            let h3 = $('<h3>').text(movies.release_date.split('-')[0]);
+                            let small = $('<small>');
+                            var title = movies.title.substring(0, 13);
+                            small.text(title + "...");
+
+
+                            let hr = $('<hr>');
+                            var genres = "";
+                            for (let genre of movies.genre_ids) {
+                                genres += selectGenresById(genre) + ",";
+                            }
+
+                            genres = genres.substring(0, 24);
+                            let p = $('<p>').text(genres);
+                            let button = $(`<a href="/Home/MovieDetails/${movies.id} class="btn btn-default" data-id="${movies
+                                .id}" role="button">View More</a>`);
+                            button.on('click', sendInfo);
+                            h3.append(small);
+                            caption.append(h3);
+                            caption.append(hr);
+                            caption.append(p);
+                            caption.append(button);
+                            thumbnail.append(image);
+                            thumbnail.append(caption);
+                            firstDIv.append(a);
+                            firstDIv.append(thumbnail);
+                            app.append(firstDIv);
+
+
                         }
-                        let firstDIv = $('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">');
-                        let a = $('<a href="#">');
-                        let thumbnail = $('<div class="thumbnail">');
-                        let image = $(`<img src="${"http://image.tmdb.org/t/p/w185/" + movies.poster_path}" alt="#">`);
-                        let caption = $('<div class="caption">');
-                        let h3 = $('<h3>').text(movies.release_date.split('-')[0]);
-                        let small = $('<small>');
-                        var title = movies.title.substring(0, 13);
-                        small.text(title + "...");
-
-
-                        let hr = $('<hr>');
-                        var genres = "";
-                        for (let genre of movies.genre_ids) {
-                            genres += selectGenresById(genre) + ",";
-                        }
-
-                        genres = genres.substring(0, 24);
-                        let p = $('<p>').text(genres);
-                        let button = $(`<a href="/Home/MovieDetails/${movies.id} class="btn btn-default" data-id="${movies
-                            .id}" role="button">View More</a>`);
-                        button.on('click', sendInfo);
-                        h3.append(small);
-                        caption.append(h3);
-                        caption.append(hr);
-                        caption.append(p);
-                        caption.append(button);
-                        thumbnail.append(image);
-                        thumbnail.append(caption);
-                        firstDIv.append(a);
-                        firstDIv.append(thumbnail);
-                        app.append(firstDIv);
-
-                    }
-                }
-
+                    });
+                   
             }).catch(notificacions.handleError);
+
     }
 
     function searchByGenre() {

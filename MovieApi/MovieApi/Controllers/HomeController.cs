@@ -29,9 +29,19 @@ namespace MovieApi.Controllers
         [HttpGet]
         public ActionResult MovieDetails(string id)
         {
+            if (Request.IsAuthenticated)
+            {
+                var context = new ApplicationDbContext();
+                var userId = User.Identity.GetUserId();
+                var movies = context.Users.FirstOrDefault(x => x.Id == userId).Movieslikes;
+                ViewBag.id = id.Split()[0];
+                return View(movies);
+            }
+            else
+            {
+                return View();
+            }
             
-            ViewBag.id = id;
-            return View();
         }
 
         [HttpGet]
@@ -46,17 +56,25 @@ namespace MovieApi.Controllers
         [HttpPost]
         public ActionResult FavoritesMovies(Movie movie)
         {
-            var genres = movie.GenresString.Split();
-            foreach (var genre in genres)
-            {
-                movie.Genres.Add(genre);
-            }
-
             var context = ApplicationDbContext.Create();
             var userId = User.Identity.GetUserId();
             var user = context.Users.FirstOrDefault(x => x.Id == userId);
-            movie.Users.Add(user);
-            context.Movies.Add(movie);
+            if (user.Movieslikes.Any(x => x.Id == movie.Id))
+            {
+                context.Movies.FirstOrDefault(x => x.Id == movie.Id).Users.Remove(user);
+                user.Movieslikes.Remove(movie);
+            }
+            else
+            {
+                var genres = movie.GenresString.Split();
+                foreach (var genre in genres)
+                {
+                    movie.Genres.Add(genre);
+                }
+                movie.Users.Add(user);
+                context.Movies.Add(movie);
+            }
+            
             context.SaveChanges();
             
             return null;

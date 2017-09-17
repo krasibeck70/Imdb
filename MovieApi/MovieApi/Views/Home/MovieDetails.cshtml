@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<MovieApi.Models.Movie>
 @{
     ViewBag.Title = "MovieDetails";
 }
@@ -37,13 +37,23 @@
                 <p id="RunTime"><strong>Duration</strong>
                 </p>
                 <p id="ReleaseDate"><strong>Release Date</strong>
-                
-                <p id="OriginalLang"><strong>Original Lenguaje</strong>
+                <p id="Actors"><strong>Actors</strong>
+                <p id="OriginalLang"><strong>Original Language</strong>
                 </p>
                 <p id="Popularity"><strong>Popularity</strong>
                 </p>
-                
-                <button id="buttonLike" class="btn btn-primary">Add to favorite</button>
+                @if (Request.IsAuthenticated)
+                {
+                    if (Model.Any(x => x.Id == ViewBag.id))
+                    {
+                        <button id="buttonLike" class="btn btn-primary">Remove of favourites</button>
+                    }
+                    else
+                    {
+                        <button id="buttonLike" class="btn btn-primary">Add to favourites</button>
+                    }
+                }
+
             </div>
             
             

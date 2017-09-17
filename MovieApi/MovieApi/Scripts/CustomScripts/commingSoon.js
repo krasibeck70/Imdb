@@ -35,7 +35,7 @@
             console.log(response);
 
             for (let movies of response.results) {
-                if (movies.poster_path === null) {
+                if (movies.poster_path === null || Number(movies.release_date.split('-')[0]) < 2017) {
                     continue;
                 }
                 let firstDIv = $('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">');

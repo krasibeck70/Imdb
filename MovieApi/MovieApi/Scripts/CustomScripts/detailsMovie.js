@@ -2,6 +2,7 @@
     const tmdbKey = '6c062077aac02e651366a9737528c88d';
 
     let id = $(location).attr('href').split('/')[5];
+    
     //$('#demo').text(id);
     $.get(`http://api.themoviedb.org/3/movie/${id}?api_key=${tmdbKey}`).then(function(response) {
         //notificacions.loading('We search your film');
@@ -11,6 +12,18 @@
             console.log(response);
             $('#movieYoutube').attr('src', "https://www.youtube.com/embed/" + responseVideo.results[0].key);
         });
+        
+        $.get(`https://api.themoviedb.org/3/movie/${response.id}/credits?api_key=6c062077aac02e651366a9737528c88d`)
+            .then(function (responseActors) {
+                let actors = "";
+                for (let actor of responseActors.cast) {
+                    actors += actor.name + ",";
+                    //console.log(actor.name);
+                }
+                $('#Actors').append(" - " + actors);
+            });
+        
+        
         $('#description').append(response.overview);
         $('#ReleaseDate').append(" - " + response.release_date);
         $('#RunTime').append(" - " + response.runtime + " min");
@@ -50,7 +63,7 @@
                 'RealeseDate': response.release_date
             }
             $.ajax({
-                url: "/Home/FavoritesMovies",
+                url: "/Home/FavoritesMovies?",
                 type: "POST",
                 data: JSON.stringify(json),
                 contentType: "application/json; charset=utf-8"
